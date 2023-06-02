@@ -60,9 +60,9 @@ const App = ({ signOut }) => {
 
   return (
     <View className="App">
-      <Heading level={1}>Berties Clothes</Heading>
-      <View as="form" margin="3rem 0" onSubmit={createClothing}>
-        <Flex direction="row" justifyContent="center">
+      <Heading margin="2rem 0" level={1}>Berties Clothes</Heading>
+      <View as="form" margin="3rem 0" onSubmit={createClothing} padding="4rem">
+        <Flex direction="column" justifyContent="center" gap="2rem">
           <SelectField
             name="type"
             label="Type"
