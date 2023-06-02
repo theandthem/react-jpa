@@ -10,91 +10,108 @@ import {
   TextField,
   View,
   withAuthenticator,
+  SelectField,
 } from "@aws-amplify/ui-react";
-import { listNotes } from "./graphql/queries";
 import {
-  createNote as createNoteMutation,
-  deleteNote as deleteNoteMutation,
+  createClothes as createClothesMutation,
+  deleteClothes as deleteClothesMutation,
 } from "./graphql/mutations";
 
+import { listClothes } from "./graphql/queries";
+
 const App = ({ signOut }) => {
-  const [notes, setNotes] = useState([]);
+  const [clothes, setClothes] = useState([]);
 
   useEffect(() => {
-    fetchNotes();
+    fetchClothes();
   }, []);
 
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
-    const notesFromAPI = apiData.data.listNotes.items;
-    setNotes(notesFromAPI);
-  }
-
-  async function createNote(event) {
+  async function createClothing(event) {
     event.preventDefault();
     const form = new FormData(event.target);
     const data = {
-      name: form.get("name"),
-      description: form.get("description"),
+      type: form.get("type"),
+      notes: form.get("notes"),
+      date: form.get("date"),
     };
     await API.graphql({
-      query: createNoteMutation,
+      query: createClothesMutation,
       variables: { input: data },
     });
-    fetchNotes();
+    fetchClothes();
     event.target.reset();
   }
 
-  async function deleteNote({ id }) {
-    const newNotes = notes.filter((note) => note.id !== id);
-    setNotes(newNotes);
+  async function deleteClothing({ id }) {
+    const newClothes = clothes.filter((clothing) => clothing.id !== id);
+    setClothes(newClothes);
     await API.graphql({
-      query: deleteNoteMutation,
+      query: deleteClothesMutation,
       variables: { input: { id } },
     });
   }
 
+  async function fetchClothes() {
+    const apiData = await API.graphql({ query: listClothes });
+    let clothes = apiData.data.listClothes.items;
+    setClothes(clothes);
+  }
+
+
   return (
     <View className="App">
-      <Heading level={1}>My Notes App</Heading>
-      <View as="form" margin="3rem 0" onSubmit={createNote}>
+      <Heading level={1}>Berties Clothes</Heading>
+      <View as="form" margin="3rem 0" onSubmit={createClothing}>
         <Flex direction="row" justifyContent="center">
-          <TextField
-            name="name"
-            placeholder="Note Name"
-            label="Note Name"
+          <SelectField
+            name="type"
+            label="Type"
+            descriptiveText="Clothing type"
             labelHidden
             variation="quiet"
             required
-          />
+          >
+            <option value="Casual">Casual clothes</option>
+            <option value="Uniform">Uniform</option>
+            <option value="PE Kit">PE kit</option>
+          </SelectField>
           <TextField
-            name="description"
-            placeholder="Note Description"
-            label="Note Description"
+            name="notes"
+            placeholder="Notes"
+            label="Notes"
             labelHidden
             variation="quiet"
+          />
+          <TextField
+            name="date"
+            placeholder="Date"
+            label="Date"
+            labelHidden
+            variation="quiet"
+            type="date"
             required
           />
           <Button type="submit" variation="primary">
-            Create Note
+            Log
           </Button>
         </Flex>
       </View>
-      <Heading level={2}>Current Notes</Heading>
+      <Heading level={2}>Current outstanding clothes</Heading>
       <View margin="3rem 0">
-        {notes.map((note) => (
+        {clothes.map((clothing) => (
           <Flex
-            key={note.id || note.name}
+            key={clothing.id || clothing.type}
             direction="row"
             justifyContent="center"
             alignItems="center"
           >
             <Text as="strong" fontWeight={700}>
-              {note.name}
+              {clothing.type}
             </Text>
-            <Text as="span">{note.description}</Text>
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
+            <Text as="span">{clothing.notes}</Text>
+            <Text as="span">{clothing.date}</Text>
+            <Button variation="link" onClick={() => deleteClothing(clothing)}>
+              Delete
             </Button>
           </Flex>
         ))}
