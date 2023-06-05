@@ -135,7 +135,7 @@ const App = ({ signOut }) => {
             </Button>
           </Flex>
         </View>
-        <Heading level={3}>Current outstanding clothes</Heading>
+        <Heading level={3}>Outstanding clothes</Heading>
         <View margin="3rem 0">
           {clothes.map((clothing) => (
             <Flex
