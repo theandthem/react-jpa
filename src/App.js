@@ -99,8 +99,8 @@ const App = ({ signOut }) => {
   return (
     <ThemeProvider theme={theme}>
       <View className="App">
-        <Heading margin="2rem 0" level={1}>Berties Clothes</Heading>
-        <View as="form" margin="3rem 0" onSubmit={createClothing} padding="4rem">
+        <Heading margin="1rem 0" level={1}>Berties Clothes</Heading>
+        <View as="form" margin="2rem 0" onSubmit={createClothing} padding="2rem 3rem">
           <Flex direction="column" justifyContent="center" gap="2rem">
             <SelectField
               name="type"
@@ -136,7 +136,7 @@ const App = ({ signOut }) => {
           </Flex>
         </View>
         <Heading level={3}>Outstanding clothes</Heading>
-        <View margin="3rem 0">
+        <View margin="2rem 0">
           {clothes.map((clothing) => (
             <Flex
               key={clothing.id || clothing.type}
