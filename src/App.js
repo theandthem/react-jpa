@@ -3,6 +3,7 @@ import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API } from "aws-amplify";
 import { ThemeProvider } from '@aws-amplify/ui-react';
+import ProperDate from "./ProperDate";
 import {
   Button,
   Flex,
@@ -59,9 +60,11 @@ const theme = {
 
 const App = ({ signOut }) => {
   const [clothes, setClothes] = useState([]);
+  const [todaysDate, setTodaysDate] = useState('');
 
   useEffect(() => {
     fetchClothes();
+    setTodaysDate(new Date().toJSON().slice(0, 10));
   }, []);
 
   async function createClothing(event) {
@@ -95,7 +98,6 @@ const App = ({ signOut }) => {
     setClothes(clothes);
   }
 
-
   return (
     <ThemeProvider theme={theme}>
       <View className="App">
@@ -116,7 +118,7 @@ const App = ({ signOut }) => {
             </SelectField>
             <TextField
               name="notes"
-              placeholder="Notes"
+              placeholder="Notes (optional)"
               label="Notes"
               labelHidden
               variation="quiet"
@@ -129,6 +131,7 @@ const App = ({ signOut }) => {
               variation="quiet"
               type="date"
               required
+              defaultValue={todaysDate}
             />
             <Button type="submit" variation="primary">
               Log
@@ -148,7 +151,7 @@ const App = ({ signOut }) => {
                 {clothing.type}
               </Text>
               <Text as="span">{clothing.notes}</Text>
-              <Text as="span">{clothing.date}</Text>
+              <ProperDate  todaysDate={clothing.date} />
               <Button variation="link" onClick={() => deleteClothing(clothing)}>
                 Delete
               </Button>
