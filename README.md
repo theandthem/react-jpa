@@ -68,3 +68,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Troubleshooting
+
+Api Key
+Add a new one in appsync (may not need to do this)
+Update the aws config locally (may not need to do this)
+
+Delete the existing API key by setting CreateAPIKey to 0 in the amplify/backend/api/<apiName>/parameters.json file and execute amplify push.
+Create a new API key by setting CreateAPIKey to 1 in the amplify/backend/api/<apiName>/parameters.json file and execute amplify push.
+
+Then push the repo to trigger build.
+
+https://docs.amplify.aws/cli-legacy/graphql-transformer/config-params/#createapikey
