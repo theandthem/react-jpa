@@ -2,5 +2,6 @@
   "AppSyncApiName": "jpa",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-06-02T13:11:06.723Z"
+  "AuthModeLastUpdated": "2023-06-02T13:11:06.723Z",
+  "CreateAPIKey": 1
 }

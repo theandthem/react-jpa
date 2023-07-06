@@ -7,6 +7,7 @@ export const onCreateClothes = /* GraphQL */ `
       id
       type
       notes
+      date
       createdAt
       updatedAt
     }
@@ -18,6 +19,7 @@ export const onUpdateClothes = /* GraphQL */ `
       id
       type
       notes
+      date
       createdAt
       updatedAt
     }
@@ -29,39 +31,7 @@ export const onDeleteClothes = /* GraphQL */ `
       id
       type
       notes
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateNote = /* GraphQL */ `
-  subscription OnCreateNote($filter: ModelSubscriptionNoteFilterInput) {
-    onCreateNote(filter: $filter) {
-      id
-      name
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateNote = /* GraphQL */ `
-  subscription OnUpdateNote($filter: ModelSubscriptionNoteFilterInput) {
-    onUpdateNote(filter: $filter) {
-      id
-      name
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteNote = /* GraphQL */ `
-  subscription OnDeleteNote($filter: ModelSubscriptionNoteFilterInput) {
-    onDeleteNote(filter: $filter) {
-      id
-      name
-      description
+      date
       createdAt
       updatedAt
     }
