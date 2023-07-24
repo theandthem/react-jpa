@@ -1,6 +1,6 @@
 type Clothes @model @auth(rules: [{allow: public}]) {
   id: ID!
-  type: String
+  type: String! @index(name: "clothesByDate", queryField: "clothesByDate", sortKeyFields: ["date"])
   notes: String
   date: AWSDate
 }

@@ -142,16 +142,17 @@ const App = ({ signOut }) => {
         <View margin="2rem 0">
           {clothes.map((clothing) => (
             <Flex
+              className="outstandingClothesItem"
               key={clothing.id || clothing.type}
               direction="row"
-              justifyContent="center"
+              justifyContent="left"
               alignItems="center"
             >
               <Text as="strong" fontWeight={700}>
                 {clothing.type}
               </Text>
               <Text as="span">{clothing.notes}</Text>
-              <ProperDate  todaysDate={clothing.date} />
+              <ProperDate todaysDate={clothing.date} />
               <Button variation="link" onClick={() => deleteClothing(clothing)}>
                 Delete
               </Button>
