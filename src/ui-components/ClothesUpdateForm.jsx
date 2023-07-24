@@ -24,10 +24,12 @@ export default function ClothesUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    noteId: "",
     type: "",
     notes: "",
     date: "",
   };
+  const [noteId, setNoteId] = React.useState(initialValues.noteId);
   const [type, setType] = React.useState(initialValues.type);
   const [notes, setNotes] = React.useState(initialValues.notes);
   const [date, setDate] = React.useState(initialValues.date);
@@ -36,6 +38,7 @@ export default function ClothesUpdateForm(props) {
     const cleanValues = clothesRecord
       ? { ...initialValues, ...clothesRecord }
       : initialValues;
+    setNoteId(cleanValues.noteId);
     setType(cleanValues.type);
     setNotes(cleanValues.notes);
     setDate(cleanValues.date);
@@ -53,9 +56,10 @@ export default function ClothesUpdateForm(props) {
   }, [idProp, clothesModelProp]);
   React.useEffect(resetStateValues, [clothesRecord]);
   const validations = {
-    type: [],
+    noteId: [{ type: "Required" }],
+    type: [{ type: "Required" }],
     notes: [],
-    date: [],
+    date: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,6 +87,7 @@ export default function ClothesUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          noteId,
           type,
           notes,
           date,
@@ -133,14 +138,42 @@ export default function ClothesUpdateForm(props) {
       {...rest}
     >
       <TextField
+        label="Note id"
+        isRequired={true}
+        isReadOnly={true}
+        value={noteId}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              noteId: value,
+              type,
+              notes,
+              date,
+            };
+            const result = onChange(modelFields);
+            value = result?.noteId ?? value;
+          }
+          if (errors.noteId?.hasError) {
+            runValidationTasks("noteId", value);
+          }
+          setNoteId(value);
+        }}
+        onBlur={() => runValidationTasks("noteId", noteId)}
+        errorMessage={errors.noteId?.errorMessage}
+        hasError={errors.noteId?.hasError}
+        {...getOverrideProps(overrides, "noteId")}
+      ></TextField>
+      <TextField
         label="Type"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={type}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              noteId,
               type: value,
               notes,
               date,
@@ -167,6 +200,7 @@ export default function ClothesUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              noteId,
               type,
               notes: value,
               date,
@@ -186,14 +220,15 @@ export default function ClothesUpdateForm(props) {
       ></TextField>
       <TextField
         label="Date"
-        isRequired={false}
-        isReadOnly={false}
+        isRequired={true}
+        isReadOnly={true}
         type="date"
         value={date}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              noteId,
               type,
               notes,
               date: value,

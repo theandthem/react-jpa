@@ -14,11 +14,13 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ClothesUpdateFormInputValues = {
+    noteId?: string;
     type?: string;
     notes?: string;
     date?: string;
 };
 export declare type ClothesUpdateFormValidationValues = {
+    noteId?: ValidationFunction<string>;
     type?: ValidationFunction<string>;
     notes?: ValidationFunction<string>;
     date?: ValidationFunction<string>;
@@ -26,6 +28,7 @@ export declare type ClothesUpdateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ClothesUpdateFormOverridesProps = {
     ClothesUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    noteId?: PrimitiveOverrideProps<TextFieldProps>;
     type?: PrimitiveOverrideProps<TextFieldProps>;
     notes?: PrimitiveOverrideProps<TextFieldProps>;
     date?: PrimitiveOverrideProps<TextFieldProps>;
@@ -33,7 +36,10 @@ export declare type ClothesUpdateFormOverridesProps = {
 export declare type ClothesUpdateFormProps = React.PropsWithChildren<{
     overrides?: ClothesUpdateFormOverridesProps | undefined | null;
 } & {
-    id?: string;
+    id?: {
+        noteId: string;
+        date: string;
+    };
     clothes?: Clothes;
     onSubmit?: (fields: ClothesUpdateFormInputValues) => ClothesUpdateFormInputValues;
     onSuccess?: (fields: ClothesUpdateFormInputValues) => void;

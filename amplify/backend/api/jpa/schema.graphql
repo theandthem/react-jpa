@@ -1,7 +1,7 @@
 type Clothes @model @auth(rules: [{allow: public}]) {
-  id: ID! @primaryKey(sortKeyFields: ["date"])
+  noteId: ID! @primaryKey(sortKeyFields: ["date"])
   type: String!
   notes: String
-  date: AWSDate
+  date: AWSDate!
 }
  

@@ -4,7 +4,7 @@
 export const onCreateClothes = /* GraphQL */ `
   subscription OnCreateClothes($filter: ModelSubscriptionClothesFilterInput) {
     onCreateClothes(filter: $filter) {
-      id
+      noteId
       type
       notes
       date
@@ -16,7 +16,7 @@ export const onCreateClothes = /* GraphQL */ `
 export const onUpdateClothes = /* GraphQL */ `
   subscription OnUpdateClothes($filter: ModelSubscriptionClothesFilterInput) {
     onUpdateClothes(filter: $filter) {
-      id
+      noteId
       type
       notes
       date
@@ -28,7 +28,7 @@ export const onUpdateClothes = /* GraphQL */ `
 export const onDeleteClothes = /* GraphQL */ `
   subscription OnDeleteClothes($filter: ModelSubscriptionClothesFilterInput) {
     onDeleteClothes(filter: $filter) {
-      id
+      noteId
       type
       notes
       date
