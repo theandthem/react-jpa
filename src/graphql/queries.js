@@ -2,9 +2,9 @@
 // this is an auto generated file. This will be overwritten
 
 export const getClothes = /* GraphQL */ `
-  query GetClothes($noteId: ID!, $date: AWSDate!) {
-    getClothes(noteId: $noteId, date: $date) {
-      noteId
+  query GetClothes($id: ID!) {
+    getClothes(id: $id) {
+      id
       type
       notes
       date
@@ -15,23 +15,42 @@ export const getClothes = /* GraphQL */ `
 `;
 export const listClothes = /* GraphQL */ `
   query ListClothes(
-    $noteId: ID
-    $date: ModelStringKeyConditionInput
     $filter: ModelClothesFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listClothes(
-      noteId: $noteId
+    listClothes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        type
+        notes
+        date
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const clothesByDate = /* GraphQL */ `
+  query ClothesByDate(
+    $type: String!
+    $date: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelClothesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    clothesByDate(
+      type: $type
       date: $date
+      sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-      sortDirection: $sortDirection
     ) {
       items {
-        noteId
+        id
         type
         notes
         date

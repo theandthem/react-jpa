@@ -13,13 +13,11 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ClothesCreateFormInputValues = {
-    noteId?: string;
     type?: string;
     notes?: string;
     date?: string;
 };
 export declare type ClothesCreateFormValidationValues = {
-    noteId?: ValidationFunction<string>;
     type?: ValidationFunction<string>;
     notes?: ValidationFunction<string>;
     date?: ValidationFunction<string>;
@@ -27,7 +25,6 @@ export declare type ClothesCreateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ClothesCreateFormOverridesProps = {
     ClothesCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    noteId?: PrimitiveOverrideProps<TextFieldProps>;
     type?: PrimitiveOverrideProps<TextFieldProps>;
     notes?: PrimitiveOverrideProps<TextFieldProps>;
     date?: PrimitiveOverrideProps<TextFieldProps>;

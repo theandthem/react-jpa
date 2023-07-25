@@ -7,7 +7,7 @@ export const createClothes = /* GraphQL */ `
     $condition: ModelClothesConditionInput
   ) {
     createClothes(input: $input, condition: $condition) {
-      noteId
+      id
       type
       notes
       date
@@ -22,7 +22,7 @@ export const updateClothes = /* GraphQL */ `
     $condition: ModelClothesConditionInput
   ) {
     updateClothes(input: $input, condition: $condition) {
-      noteId
+      id
       type
       notes
       date
@@ -37,7 +37,7 @@ export const deleteClothes = /* GraphQL */ `
     $condition: ModelClothesConditionInput
   ) {
     deleteClothes(input: $input, condition: $condition) {
-      noteId
+      id
       type
       notes
       date

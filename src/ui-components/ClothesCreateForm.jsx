@@ -23,25 +23,21 @@ export default function ClothesCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    noteId: "",
     type: "",
     notes: "",
     date: "",
   };
-  const [noteId, setNoteId] = React.useState(initialValues.noteId);
   const [type, setType] = React.useState(initialValues.type);
   const [notes, setNotes] = React.useState(initialValues.notes);
   const [date, setDate] = React.useState(initialValues.date);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setNoteId(initialValues.noteId);
     setType(initialValues.type);
     setNotes(initialValues.notes);
     setDate(initialValues.date);
     setErrors({});
   };
   const validations = {
-    noteId: [{ type: "Required" }],
     type: [{ type: "Required" }],
     notes: [],
     date: [{ type: "Required" }],
@@ -72,7 +68,6 @@ export default function ClothesCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          noteId,
           type,
           notes,
           date,
@@ -122,33 +117,6 @@ export default function ClothesCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Note id"
-        isRequired={true}
-        isReadOnly={false}
-        value={noteId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              noteId: value,
-              type,
-              notes,
-              date,
-            };
-            const result = onChange(modelFields);
-            value = result?.noteId ?? value;
-          }
-          if (errors.noteId?.hasError) {
-            runValidationTasks("noteId", value);
-          }
-          setNoteId(value);
-        }}
-        onBlur={() => runValidationTasks("noteId", noteId)}
-        errorMessage={errors.noteId?.errorMessage}
-        hasError={errors.noteId?.hasError}
-        {...getOverrideProps(overrides, "noteId")}
-      ></TextField>
-      <TextField
         label="Type"
         isRequired={true}
         isReadOnly={false}
@@ -157,7 +125,6 @@ export default function ClothesCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              noteId,
               type: value,
               notes,
               date,
@@ -184,7 +151,6 @@ export default function ClothesCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              noteId,
               type,
               notes: value,
               date,
@@ -212,7 +178,6 @@ export default function ClothesCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              noteId,
               type,
               notes,
               date: value,
