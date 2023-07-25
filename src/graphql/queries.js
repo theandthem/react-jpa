@@ -32,32 +32,3 @@ export const listClothes = /* GraphQL */ `
     }
   }
 `;
-export const clothesByDate = /* GraphQL */ `
-  query ClothesByDate(
-    $type: String!
-    $date: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelClothesFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    clothesByDate(
-      type: $type
-      date: $date
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        type
-        notes
-        date
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
