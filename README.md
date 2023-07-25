@@ -82,3 +82,9 @@ Create a new API key by setting CreateAPIKey to 1 in the amplify/backend/api/<ap
 Then push the repo to trigger build.
 
 https://docs.amplify.aws/cli-legacy/graphql-transformer/config-params/#createapikey
+
+To work on this,
+NVM switch to lts
+npm start to run locally
+Change scheme locally and then run amplify push -y to build it.
+When happy push branch and amplify will build and deploy.
