@@ -80,6 +80,8 @@ Then push the repo to trigger build.
 
 https://docs.amplify.aws/cli-legacy/graphql-transformer/config-params/#createapikey
 
+Other option is to go into aws appsync, select the app, click settings, find the key in there and adjust the expiration.
+
 To work on this,
 NVM switch to lts
 npm start to run locally
