@@ -87,3 +87,7 @@ NVM switch to lts
 npm start to run locally
 Change scheme locally and then run amplify push -y to build it.
 When happy push branch and amplify will build and deploy.
+
+
+If installing on a new machine run this first, might also need to install amplify-cli too.
+amplify pull --appId d8vomtc50e0a0 --envName staging

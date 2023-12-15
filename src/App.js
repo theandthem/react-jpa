@@ -144,18 +144,32 @@ const App = ({ signOut }) => {
             <Flex
               className="outstandingClothesItem"
               key={clothing.id || clothing.type}
-              direction="row"
+              direction="column"
               justifyContent="left"
-              alignItems="center"
+              alignItems="stretch"
+              gap="0.5rem"
             >
-              <Text as="strong" fontWeight={700}>
-                {clothing.type}
-              </Text>
-              <Text as="span">{clothing.notes}</Text>
-              <ProperDate todaysDate={clothing.date} />
-              <Button variation="link" onClick={() => deleteClothing(clothing)}>
-                Delete
-              </Button>
+              <View>
+                <View as="span" padding="0 0.5rem">
+                  <Text as="strong" fontWeight={700}>
+                    {clothing.type}
+                  </Text>
+                </View>
+                <View as="span" padding="0 0.5rem">
+                  <ProperDate padding="0 1rem" todaysDate={clothing.date} />
+                </View>
+                <View as="span" padding="0 0.5rem">
+                  <Button variation="link" onClick={() => deleteClothing(clothing)}>
+                    Delete
+                  </Button>
+                </View>
+              </View>
+              <View
+                margin="0 0 1.5rem 0"
+                padding="0 0.5rem"
+              >
+                <Text fontSize="0.9rem">{clothing.notes}</Text>
+              </View>
             </Flex>
           ))}
         </View>

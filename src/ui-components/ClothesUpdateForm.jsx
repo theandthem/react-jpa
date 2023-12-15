@@ -7,10 +7,10 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Clothes } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getClothes } from "../graphql/queries";
+import { updateClothes } from "../graphql/mutations";
 export default function ClothesUpdateForm(props) {
   const {
     id: idProp,
@@ -45,7 +45,12 @@ export default function ClothesUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Clothes, idProp)
+        ? (
+            await API.graphql({
+              query: getClothes.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getClothes
         : clothesModelProp;
       setClothesRecord(record);
     };
@@ -84,7 +89,7 @@ export default function ClothesUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           type,
-          notes,
+          notes: notes ?? null,
           date,
         };
         const validationResponses = await Promise.all(
@@ -111,21 +116,26 @@ export default function ClothesUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Clothes.copyOf(clothesRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateClothes.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: clothesRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

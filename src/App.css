@@ -13,3 +13,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.outstandingClothesItem {
+    .amplify-button {
+      padding: 0;
+    }
+}
